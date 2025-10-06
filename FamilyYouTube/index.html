@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>全家一起看 YouTube 🎬</title>
+    <meta
+      name="description"
+      content="精選適合全家觀賞的優質 YouTube 頻道，涵蓋教育、娛樂、科普等多元分類"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 主標題區 -->
+    <header class="header">
+      <div class="container">
+        <h1 class="site-title">
+          <span class="emoji">🎬</span>
+          全家一起看 YouTube
+          <span class="emoji">👨‍👩‍👧‍👦</span>
+        </h1>
+        <p class="site-subtitle">精選適合闔家觀賞的優質頻道</p>
+      </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="main-content">
+      <div class="container">
+        <!-- 搜尋列 -->
+        <div class="search-section">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input
+              type="text"
+              id="searchInput"
+              class="search-input"
+              placeholder="搜尋頻道名稱或描述..."
+              aria-label="搜尋頻道"
+            />
+            <button id="clearSearch" class="clear-btn" aria-label="清除搜尋">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- 分類按鈕區 -->
+        <nav class="category-nav" role="navigation" aria-label="頻道分類">
+          <button
+            class="category-btn active"
+            data-category="entertainment"
+            aria-pressed="true"
+          >
+            <span class="category-icon">🎪</span>
+            綜合娛樂
+          </button>
+          <button
+            class="category-btn"
+            data-category="foreignerstaiwan"
+            aria-pressed="false"
+          >
+            <span class="category-icon">📚</span>
+            外國人介紹台灣
+          </button>
+          <button class="category-btn" data-category="diy" aria-pressed="false">
+            <span class="category-icon">🔬</span>
+            DIY 手作
+          </button>
+          <button
+            class="category-btn"
+            data-category="travel"
+            aria-pressed="false"
+          >
+            <span class="category-icon">🎵</span>
+            旅遊探索
+          </button>
+          <button
+            class="category-btn"
+            data-category="animation"
+            aria-pressed="false"
+          >
+            <span class="category-icon">🧸</span>
+            動畫頻道
+          </button>
+        </nav>
+
+        <!-- 分類標題 -->
+        <div class="section-header">
+          <h2 id="categoryTitle" class="category-title">綜合娛樂</h2>
+          <span id="channelCount" class="channel-count">載入中...</span>
+        </div>
+
+        <!-- 頻道卡片容器 -->
+        <div id="channelGrid" class="channel-grid" role="list">
+          <!-- 頻道卡片將由 JavaScript 動態生成 -->
+        </div>
+
+        <!-- 無結果提示 -->
+        <div id="noResults" class="no-results" style="display: none">
+          <span class="no-results-icon">😢</span>
+          <p>找不到符合的頻道</p>
+          <p class="no-results-hint">試試其他關鍵字或瀏覽其他分類</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">
+          <span class="emoji">💝</span>
+          用心整理，與家人共享美好時光
+          <span class="emoji">✨</span>
+        </p>
+        <p class="footer-note">所有頻道連結將在新視窗開啟</p>
+      </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

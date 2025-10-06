@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精通 Markdown - 互動式教學</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1><i class="icon-markdown"></i>精通 Markdown</h1>
+            <p>互動式學習平台，掌握 Markdown 語法與技巧</p>
+        </div>
+    </header>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h3>課程目錄</h3>
+        </div>
+        <ul class="lesson-list" id="lessonList">
+            <li><a href="lesson.html?lesson=1" class="lesson-link" data-lesson="1">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Markdown 基礎入門</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=2" class="lesson-link" data-lesson="2">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">清單與列表</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=3" class="lesson-link" data-lesson="3">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">連結與圖片</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=4" class="lesson-link" data-lesson="4">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">引用與程式碼</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=5" class="lesson-link" data-lesson="5">
+                <span class="lesson-number">05</span>
+                <span class="lesson-title">表格製作</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=6" class="lesson-link" data-lesson="6">
+                <span class="lesson-number">06</span>
+                <span class="lesson-title">進階技巧</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=7" class="lesson-link" data-lesson="7">
+                <span class="lesson-number">07</span>
+                <span class="lesson-title">擴充語法</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=8" class="lesson-link" data-lesson="8">
+                <span class="lesson-number">08</span>
+                <span class="lesson-title">實戰應用</span>
+            </a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="welcome-section">
+            <h2>歡迎來到 Markdown 學習之旅</h2>
+            <p class="intro-text">
+                這是一個互動式的 Markdown 學習平台，將帶您從零基礎到精通 Markdown 的各種語法與技巧。
+                每個單元都包含實際操作練習，讓您在學習過程中即時驗證所學內容。
+            </p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>互動式學習</h3>
+                    <p>內建程式編輯器，支援即時預覽與答案檢驗</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>實戰練習</h3>
+                    <p>豐富的編碼題與實際應用場景練習</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>響應式設計</h3>
+                    <p>支援各種裝置，隨時隨地學習</p>
+                </div>
+            </div>
+
+            <div class="start-learning">
+                <h3>開始學習</h3>
+                <p>點擊左側目錄中的任一課程開始您的學習之旅，建議按照順序學習以獲得最佳效果。</p>
+                <a href="lesson.html?lesson=1" class="btn-primary">開始第一課</a>
+            </div>
+            
+            <div class="author-info">
+                <h3>關於作者</h3>
+                <div class="author-links">
+                    <p>這個教學專案由 <strong>Initials</strong> 製作，希望能幫助大家學習 Markdown。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/initials4u" target="_blank" class="social-link facebook">
+                            <span class="social-icon">📘</span>
+                            Facebook 粉絲專頁
+                        </a>
+                        <a href="https://dotblogs.com.tw/initials" target="_blank" class="social-link blog">
+                            <span class="social-icon">✍️</span>
+                            技術部落格
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

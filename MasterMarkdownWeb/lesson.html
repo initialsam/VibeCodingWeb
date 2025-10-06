@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課程內容 - 精通 Markdown</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material.min.css">
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="markdown-index.html" class="header-brand">
+                <h1><i class="icon-markdown"></i>精通 Markdown</h1>
+            </a>
+            <div class="lesson-nav">
+                <button id="prevLesson" class="nav-btn" disabled>← 上一課</button>
+                <span id="currentLessonTitle" class="current-lesson">載入中...</span>
+                <button id="nextLesson" class="nav-btn">下一課 →</button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h3>課程目錄</h3>
+        </div>
+        <ul class="lesson-list" id="lessonList">
+            <li><a href="lesson.html?lesson=1" class="lesson-link" data-lesson="1">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Markdown 基礎入門</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=2" class="lesson-link" data-lesson="2">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">清單與列表</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=3" class="lesson-link" data-lesson="3">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">連結與圖片</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=4" class="lesson-link" data-lesson="4">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">引用與程式碼</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=5" class="lesson-link" data-lesson="5">
+                <span class="lesson-number">05</span>
+                <span class="lesson-title">表格製作</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=6" class="lesson-link" data-lesson="6">
+                <span class="lesson-number">06</span>
+                <span class="lesson-title">進階技巧</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=7" class="lesson-link" data-lesson="7">
+                <span class="lesson-number">07</span>
+                <span class="lesson-title">擴充語法</span>
+            </a></li>
+            <li><a href="lesson.html?lesson=8" class="lesson-link" data-lesson="8">
+                <span class="lesson-number">08</span>
+                <span class="lesson-title">實戰應用</span>
+            </a></li>
+        </ul>
+        
+        <div class="sidebar-footer">
+            <div class="author-info-sidebar">
+                <h4>作者資訊</h4>
+                <p><strong>Initials</strong></p>
+                <div class="author-links-sidebar">
+                    <a href="https://www.facebook.com/initials4u" target="_blank" class="author-link">
+                        📘 Facebook
+                    </a>
+                    <a href="https://dotblogs.com.tw/initials" target="_blank" class="author-link">
+                        ✍️ 部落格
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content lesson-content">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>載入課程中...</p>
+        </div>
+        <div class="lesson-container" id="lessonContainer" style="display: none;">
+            <div id="lessonContent" class="markdown-content"></div>
+        </div>
+    </main>
+
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.1/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/markdown/markdown.min.js"></script>
+    <!-- KaTeX for Math Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/lesson.js"></script>
+</body>
+</html>

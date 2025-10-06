@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功能測試 - 精通 Markdown</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>功能測試頁面</h1>
+            <p>測試所有修正的功能是否正常運作</p>
+        </div>
+    </header>
+
+    <main class="main-content" style="margin-left: 0; padding: 100px 2rem 2rem;">
+        <div class="test-section">
+            <h2>1. 數學公式測試</h2>
+            <div class="math-test">
+                <p>內聯數學公式：<span class="math-inline" data-formula="E = mc^2"></span></p>
+                <div class="math-block" data-formula="\frac{-b \pm \sqrt{b^2-4ac}}{2a}"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>2. 練習題測試</h2>
+            <div class="exercise-block" data-exercise-id="test-exercise">
+                <div class="exercise-title">測試練習題</div>
+                <div class="exercise-description">請輸入粗體文字「Hello World」</div>
+                <div class="editor-container">
+                    <textarea class="exercise-editor" data-exercise-id="test-exercise" data-answer="**Hello World**" data-hint="使用雙星號包圍文字"></textarea>
+                    <div class="editor-actions">
+                        <div>
+                            <button class="btn-hint" onclick="showHint('test-exercise')">💡 提示</button>
+                            <button class="btn-reset" onclick="resetExercise('test-exercise')">重設</button>
+                        </div>
+                        <button class="btn-check" onclick="checkAnswer('test-exercise')">檢查答案</button>
+                    </div>
+                    <div class="result-message" id="result-test-exercise"></div>
+                    <div class="exercise-preview" id="preview-test-exercise" style="display: none;">
+                        <div class="preview-header">✅ 您的答案渲染結果：</div>
+                        <div class="preview-content" id="preview-content-test-exercise"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>3. 預覽區塊測試</h2>
+            <div class="preview-block">
+                <div class="preview-header">Markdown 預覽範例</div>
+                <div class="preview-content">
+                    <div class="preview-grid">
+                        <div class="preview-source">
+                            <strong style="color: #cbd5e0; display: block; margin-bottom: 0.5rem;">Markdown 原始碼：</strong>
+                            <pre style="margin: 0; white-space: pre-wrap; font-size: inherit;">**粗體文字**
+*斜體文字*
+`程式碼`</pre>
+                        </div>
+                        <div class="preview-result">
+                            <strong style="color: var(--text-secondary); display: block; margin-bottom: 1rem;">渲染結果：</strong>
+                            <div class="markdown-preview">
+                                <p><strong>粗體文字</strong><br>
+                                <em>斜體文字</em><br>
+                                <code>程式碼</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>4. 作者資訊測試</h2>
+            <div class="author-info">
+                <h3>關於作者</h3>
+                <div class="author-links">
+                    <p>這個教學專案由 <strong>Initials</strong> 製作，希望能幫助大家學習 Markdown。</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/initials4u" target="_blank" class="social-link facebook">
+                            <span class="social-icon">📘</span>
+                            Facebook 粉絲專頁
+                        </a>
+                        <a href="https://dotblogs.com.tw/initials" target="_blank" class="social-link blog">
+                            <span class="social-icon">✍️</span>
+                            技術部落格
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>測試說明</h2>
+            <ul>
+                <li>數學公式應該正確渲染</li>
+                <li>練習題應該可以輸入、檢查答案、顯示提示和重設</li>
+                <li>答對時應該顯示渲染結果和原始語法</li>
+                <li>連續答錯三次應該詢問是否查看解答</li>
+                <li>預覽區塊應該正常顯示原始碼和渲染結果</li>
+                <li>作者資訊連結應該可以正常點擊</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/editor.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page loaded');
+            
+            // Initialize editor
+            setTimeout(() => {
+                ExerciseEditor.getInstance().initializeEditors();
+            }, 500);
+            
+            // Initialize math rendering
+            setTimeout(() => {
+                MarkdownRenderer.renderMathAndDiagrams();
+            }, 1000);
+        });
+    </script>
+
+    <style>
+        .test-section {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .test-section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .math-test {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        .test-section ul {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-blue);
+        }
+    </style>
+</body>
+</html>
