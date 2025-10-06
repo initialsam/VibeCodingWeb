@@ -106,7 +106,7 @@ function handleCategoryClick(e) {
   btn.setAttribute("aria-pressed", "true");
 
   // 清除搜尋
-  clearSearch();
+  clearSearch(false);
 
   // 切換分類
   currentCategory = category;
@@ -242,12 +242,14 @@ function handleSearch(e) {
 }
 
 // ==================== 清除搜尋 ====================
-function clearSearch() {
+function clearSearch(shouldFocus = true) {
   searchInput.value = "";
   clearSearchBtn.classList.remove("show");
   isSearching = false;
   displayCategory(currentCategory);
-  searchInput.focus();
+  if (shouldFocus) {
+    searchInput.focus();
+  }
 }
 
 // ==================== 工具函數 ====================
