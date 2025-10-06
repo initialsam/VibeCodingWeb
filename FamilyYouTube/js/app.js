@@ -1,5 +1,5 @@
 // ==================== 全域變數 ====================
-let currentCategory = "entertainment";
+let currentCategory = "all"; // 初始設定為 "all" 顯示所有分類
 let allData = {}; // 儲存所有分類的頻道資料
 let isSearching = false;
 let isDataLoaded = false; // 標記資料是否已載入
@@ -93,8 +93,21 @@ function handleCategoryClick(e) {
   const btn = e.currentTarget;
   const category = btn.getAttribute("data-category");
 
+  // 如果點擊的是當前已選中的分類，則取消選取並回到全部分類
   if (category === currentCategory && !isSearching) {
-    return; // 已經在當前分類且沒有搜尋中
+    // 移除所有按鈕的 active 狀態
+    categoryBtns.forEach((b) => {
+      b.classList.remove("active");
+      b.setAttribute("aria-pressed", "false");
+    });
+    
+    // 清除搜尋
+    clearSearch(false);
+    
+    // 切換回全部分類
+    currentCategory = "all";
+    displayCategory("all");
+    return;
   }
 
   // 更新按鈕狀態
@@ -117,6 +130,28 @@ function handleCategoryClick(e) {
 function displayCategory(category) {
   if (!isDataLoaded) {
     console.error("資料尚未載入完成");
+    return;
+  }
+
+  // 如果是顯示所有分類
+  if (category === "all") {
+    categoryTitle.textContent = "全部分類";
+    const allChannels = [];
+    
+    // 收集所有分類的頻道並標記分類
+    Object.keys(allData).forEach((categoryKey) => {
+      const channels = allData[categoryKey] || [];
+      channels.forEach((channel) => {
+        allChannels.push({
+          ...channel,
+          category: categoryKey,
+          categoryName: categories[categoryKey].name,
+        });
+      });
+    });
+    
+    // 渲染所有頻道（顯示分類標籤）
+    renderChannels(allChannels, true);
     return;
   }
 
