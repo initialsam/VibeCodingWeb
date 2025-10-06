@@ -6,15 +6,15 @@ let isDataLoaded = false; // 標記資料是否已載入
 
 // 分類對應資料
 const categories = {
-  entertainment: { name: "綜合娛樂", icon: "🎪", file: "entertainment.json" },
-  diy: { name: "DIY 手作", icon: "📚", file: "diy.json" },
+  entertainment: { name: "綜合娛樂", icon: "📺", file: "entertainment.json" },
+  diy: { name: "DIY 手作", icon: "🛠️", file: "diy.json" },
   foreignerstaiwan: {
     name: "外國人介紹台灣",
-    icon: "🔬",
+    icon: "🤝",
     file: "foreignerstaiwan.json",
   },
-  travel: { name: "旅遊探索", icon: "🎵", file: "travel.json" },
-  animation: { name: "動畫頻道", icon: "🧸", file: "animation.json" },
+  travel: { name: "旅遊探索", icon: "✈️", file: "travel.json" },
+  animation: { name: "動畫頻道", icon: "✨", file: "animation.json" },
 };
 
 // ==================== DOM 元素 ====================
@@ -24,7 +24,8 @@ const channelCount = document.getElementById("channelCount");
 const searchInput = document.getElementById("searchInput");
 const clearSearchBtn = document.getElementById("clearSearch");
 const noResults = document.getElementById("noResults");
-const categoryBtns = document.querySelectorAll(".category-btn");
+const categoryNav = document.getElementById("categoryNav");
+let categoryBtns = []; // 將在動態生成後填充
 
 // ==================== 初始化 ====================
 document.addEventListener("DOMContentLoaded", () => {
@@ -32,20 +33,50 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function initApp() {
+  // 動態生成分類按鈕
+  generateCategoryButtons();
+
   // 一次性載入所有分類資料
   await loadAllData();
 
   // 顯示預設分類
   displayCategory(currentCategory);
 
-  // 綁定分類按鈕事件
-  categoryBtns.forEach((btn) => {
-    btn.addEventListener("click", handleCategoryClick);
-  });
-
   // 綁定搜尋事件
   searchInput.addEventListener("input", handleSearch);
   clearSearchBtn.addEventListener("click", clearSearch);
+}
+
+// ==================== 動態生成分類按鈕 ====================
+function generateCategoryButtons() {
+  // 清空容器
+  categoryNav.innerHTML = "";
+
+  // 根據 categories 物件生成按鈕
+  Object.keys(categories).forEach((categoryKey) => {
+    const category = categories[categoryKey];
+    
+    // 創建按鈕元素
+    const button = document.createElement("button");
+    button.className = "category-btn";
+    button.setAttribute("data-category", categoryKey);
+    button.setAttribute("aria-pressed", "false");
+    
+    // 創建按鈕內容
+    button.innerHTML = `
+      <span class="category-icon">${category.icon}</span>
+      ${category.name}
+    `;
+    
+    // 綁定點擊事件
+    button.addEventListener("click", handleCategoryClick);
+    
+    // 添加到導航列
+    categoryNav.appendChild(button);
+  });
+
+  // 更新 categoryBtns 陣列
+  categoryBtns = document.querySelectorAll(".category-btn");
 }
 
 // ==================== 載入所有資料 ====================
@@ -100,10 +131,10 @@ function handleCategoryClick(e) {
       b.classList.remove("active");
       b.setAttribute("aria-pressed", "false");
     });
-    
+
     // 清除搜尋
     clearSearch(false);
-    
+
     // 切換回全部分類
     currentCategory = "all";
     displayCategory("all");
@@ -137,7 +168,7 @@ function displayCategory(category) {
   if (category === "all") {
     categoryTitle.textContent = "全部分類";
     const allChannels = [];
-    
+
     // 收集所有分類的頻道並標記分類
     Object.keys(allData).forEach((categoryKey) => {
       const channels = allData[categoryKey] || [];
@@ -149,7 +180,7 @@ function displayCategory(category) {
         });
       });
     });
-    
+
     // 渲染所有頻道（顯示分類標籤）
     renderChannels(allChannels, true);
     return;
