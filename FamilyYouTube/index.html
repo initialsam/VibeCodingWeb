@@ -8,40 +8,41 @@
       name="description"
       content="精選適合全家觀賞的優質 YouTube 頻道，涵蓋教育、娛樂、科普等多元分類"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=1" />
   </head>
   <body>
-    <!-- 主標題區 -->
+    <!-- 主標題與搜尋整合區 -->
     <header class="header">
       <div class="container">
-        <h1 class="site-title">
-          <span class="emoji">🎬</span>
-          全家一起看 YouTube
-          <span class="emoji">👨‍👩‍👧‍👦</span>
-        </h1>
-        <p class="site-subtitle">精選適合闔家觀賞的優質頻道</p>
+        <div class="header-content">
+          <div class="title-section">
+            <h1 class="site-title">
+              全家一起看 YouTube
+            </h1>
+            <p class="site-subtitle">精選適合闔家觀賞的優質頻道</p>
+          </div>
+          <div class="search-section">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="搜尋頻道名稱或描述..."
+                aria-label="搜尋頻道"
+              />
+              <button id="clearSearch" class="clear-btn" aria-label="清除搜尋">
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
     <!-- 主要內容區 -->
     <main class="main-content">
       <div class="container">
-        <!-- 搜尋列 -->
-        <div class="search-section">
-          <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input
-              type="text"
-              id="searchInput"
-              class="search-input"
-              placeholder="搜尋頻道名稱或描述..."
-              aria-label="搜尋頻道"
-            />
-            <button id="clearSearch" class="clear-btn" aria-label="清除搜尋">
-              ✕
-            </button>
-          </div>
-        </div>
 
         <!-- 分類按鈕區 -->
         <nav id="categoryNav" class="category-nav" role="navigation" aria-label="頻道分類">
