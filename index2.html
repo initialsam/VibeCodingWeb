@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github 外部表單</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">外部聯絡資料表</h2>
+
+      <!-- 重要：這裡設定 name 屬性，這是傳給 Google Script 的關鍵 -->
+      <form id="myForm">
+        
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+            姓名
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                 id="username" type="text" name="username" required placeholder="請輸入姓名">
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            Email
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                 id="email" type="email" name="email" required placeholder="name@example.com">
+        </div>
+
+        <div class="flex items-center justify-between">
+          <button id="btn-submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition duration-300" 
+                  type="submit">
+            送出資料
+          </button>
+        </div>
+      </form>
+
+      <div id="message" class="mt-4 text-center text-green-600 font-semibold hidden"></div>
+    </div>
+
+    <script>
+      // ----------------------------------------------------------
+      // 設定區：請將下方的網址換成你 Google Apps Script 部署後的網址
+      // ----------------------------------------------------------
+      const scriptURL = 'https://script.google.com/macros/library/d/1X_D-s7xG6QW17uCi3RS0aWecQJU3UVMNizkt2sozzDvSfRpGBJXwDyIm/4'; 
+
+      const form = document.forms['myForm'];
+      const btn = document.getElementById('btn-submit');
+      const msg = document.getElementById('message');
+
+      form.addEventListener('submit', e => {
+        e.preventDefault(); // 阻止預設跳頁
+
+        // UI 互動：按鈕變色、鎖定
+        const originalText = btn.innerText;
+        btn.disabled = true;
+        btn.innerText = "處理中...";
+
+        // 使用 fetch 發送資料
+        fetch(scriptURL, { 
+            method: 'POST', 
+            body: new FormData(form)
+        })
+        .then(response => {
+            // Google Script 回傳成功
+            msg.innerText = "資料已成功傳送至 Google Sheet！";
+            msg.classList.remove('hidden');
+            form.reset();
+            
+            btn.disabled = false;
+            btn.innerText = originalText;
+
+            setTimeout(() => msg.classList.add('hidden'), 3000);
+        })
+        .catch(error => {
+            // 發生錯誤
+            console.error('Error!', error.message);
+            alert("發生錯誤，請檢查網址或網路狀態。");
+            btn.disabled = false;
+            btn.innerText = originalText;
+        });
+      });
+    </script>
+  </body>
+</html>
