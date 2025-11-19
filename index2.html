@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Github 外部表單</title>
@@ -12,9 +11,7 @@
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">外部聯絡資料表</h2>
 
-      <!-- 重要：這裡設定 name 屬性，這是傳給 Google Script 的關鍵 -->
       <form id="myForm">
-        
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
             姓名
@@ -53,33 +50,30 @@
       const msg = document.getElementById('message');
 
       form.addEventListener('submit', e => {
-        e.preventDefault(); // 阻止預設跳頁
+        e.preventDefault(); 
 
-        // UI 互動：按鈕變色、鎖定
         const originalText = btn.innerText;
         btn.disabled = true;
         btn.innerText = "處理中...";
 
-        // 【修正重點】
-        // 使用 URLSearchParams 來編碼資料，比 FormData 更不容易觸發 CORS 錯誤
+        // 使用 URLSearchParams 封裝資料
         const data = new URLSearchParams(new FormData(form));
 
-        // 使用 fetch 發送資料
         fetch(scriptURL, { 
             method: 'POST', 
             body: data,
-            // 【重要】不要加 mode: 'no-cors'，除非你完全無法解決錯誤且不需要回傳訊息
+            // 【關鍵修改 1】強制使用 no-cors 模式
+            //這會告訴瀏覽器：「我要送出資料，但我不在乎讀取回應內容，請不要阻擋我」
+            mode: 'no-cors' 
         })
-        .then(response => response.json()) // 解析 JSON
-        .then(result => {
-            if(result.result === 'success') {
-                // Google Script 回傳成功
-                msg.innerText = "資料已成功傳送至 Google Sheet！";
-                msg.classList.remove('hidden');
-                form.reset();
-            } else {
-                throw new Error(result.error);
-            }
+        .then(response => {
+            // 【關鍵修改 2】在 no-cors 模式下，response 是不透明的 (Opaque)
+            // 我們無法讀取 response.json() 或 text()，讀取會報錯
+            // 只要進入這裡，就代表請求已發出且沒有網路錯誤，我們假設成功
+            
+            msg.innerText = "資料已送出！";
+            msg.classList.remove('hidden');
+            form.reset();
             
             btn.disabled = false;
             btn.innerText = originalText;
@@ -87,11 +81,8 @@
             setTimeout(() => msg.classList.add('hidden'), 3000);
         })
         .catch(error => {
-            // 發生錯誤
             console.error('Error!', error.message);
-            // 就算發生 CORS 錯誤，有時候資料其實已經寫入 Sheet 了
-            // 可以改用 alert 提示使用者檢查
-            alert("發生連線問題 (CORS)，但資料可能已送出。請檢查 Google Sheet。");
+            alert("發生錯誤，請檢查網路狀態。");
             btn.disabled = false;
             btn.innerText = originalText;
         });
