@@ -56,15 +56,12 @@
         btn.disabled = true;
         btn.innerText = "處理中...";
 
-        // 使用 URLSearchParams 封裝資料
-        const data = new URLSearchParams(new FormData(form));
-
         fetch(scriptURL, { 
             method: 'POST', 
            headers: {
               'Content-Type': 'text/plain;charset=utf-8',
             },
-            body: data
+            body: new FormData(form)
         })
         .then(response => {
             // 【關鍵修改 2】在 no-cors 模式下，response 是不透明的 (Opaque)
