@@ -60,16 +60,26 @@
         btn.disabled = true;
         btn.innerText = "處理中...";
 
+        // 【修正重點】
+        // 使用 URLSearchParams 來編碼資料，比 FormData 更不容易觸發 CORS 錯誤
+        const data = new URLSearchParams(new FormData(form));
+
         // 使用 fetch 發送資料
         fetch(scriptURL, { 
             method: 'POST', 
-            body: new FormData(form)
+            body: data,
+            // 【重要】不要加 mode: 'no-cors'，除非你完全無法解決錯誤且不需要回傳訊息
         })
-        .then(response => {
-            // Google Script 回傳成功
-            msg.innerText = "資料已成功傳送至 Google Sheet！";
-            msg.classList.remove('hidden');
-            form.reset();
+        .then(response => response.json()) // 解析 JSON
+        .then(result => {
+            if(result.result === 'success') {
+                // Google Script 回傳成功
+                msg.innerText = "資料已成功傳送至 Google Sheet！";
+                msg.classList.remove('hidden');
+                form.reset();
+            } else {
+                throw new Error(result.error);
+            }
             
             btn.disabled = false;
             btn.innerText = originalText;
@@ -79,7 +89,9 @@
         .catch(error => {
             // 發生錯誤
             console.error('Error!', error.message);
-            alert("發生錯誤，請檢查網址或網路狀態。");
+            // 就算發生 CORS 錯誤，有時候資料其實已經寫入 Sheet 了
+            // 可以改用 alert 提示使用者檢查
+            alert("發生連線問題 (CORS)，但資料可能已送出。請檢查 Google Sheet。");
             btn.disabled = false;
             btn.innerText = originalText;
         });
